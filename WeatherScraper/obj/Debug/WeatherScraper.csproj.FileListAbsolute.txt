@@ -11,3 +11,7 @@ C:\Users\pagel\Documents\Visual Studio 2012\Projects\WeatherScraper\WeatherScrap
 C:\Users\pagel\Documents\Visual Studio 2012\Projects\WeatherScraper\WeatherScraper\obj\Debug\WeatherScraper.exe
 C:\Users\pagel\Documents\Visual Studio 2012\Projects\WeatherScraper\WeatherScraper\obj\Debug\WeatherScraper.pdb
 C:\Users\pagel\Documents\Visual Studio 2012\Projects\WeatherScraper\WeatherScraper\obj\Debug\WeatherScraper.csprojResolveAssemblyReference.cache
+C:\source-control\WeatherScraper\WeatherScraper\bin\Debug\WeatherScraper.exe.config
+C:\source-control\WeatherScraper\WeatherScraper\bin\Debug\WeatherScraper.xml
+C:\source-control\WeatherScraper\WeatherScraper\obj\Debug\WeatherScraper.exe
+C:\source-control\WeatherScraper\WeatherScraper\obj\Debug\WeatherScraper.pdb

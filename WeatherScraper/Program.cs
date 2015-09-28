@@ -284,7 +284,7 @@ namespace WeatherScraper
                 string fullPath = string.Concat(EnsureTrailingSlash(DataPath), fileUniqueName);
 
                 // Write the file to disk
-                IEnumerable<string> lines = new[] {" ", "981 ", string.Format("SACN61 {0} {1} ", airportCode, dayTime), string.Concat(data, "=")};
+                IEnumerable<string> lines = new[] { " ", "981 ", string.Format("SACN61 {0} {1} ", airportCode, dayTime), string.Concat(data, "=") };
                 File.WriteAllLines(fullPath, lines);
             }
             catch (Exception x)
@@ -306,7 +306,6 @@ namespace WeatherScraper
             return !path.EndsWith("\\") ? string.Concat(path, "\\") : path;
         }
 
-        // TODO: Restart the count at midnight every day
         /// <summary>
         ///     Gets a unique extension for the data file.
         /// </summary>
@@ -350,7 +349,7 @@ namespace WeatherScraper
         {
             string errorMessage = string.Format("{0}\r\n{1}", x.Message, x.StackTrace);
 
-            EventLog applicationLog = new EventLog {Source = "WeatherScraper"};
+            EventLog applicationLog = new EventLog { Source = "WeatherScraper" };
             applicationLog.WriteEntry(errorMessage, EventLogEntryType.Error);
         }
 
@@ -372,7 +371,7 @@ namespace WeatherScraper
             {
                 MailMessage mailMessage = new MailMessage(MailFrom, MailTo, MailSubject, message);
 
-                SmtpClient client = new SmtpClient {Host = MailServer};
+                SmtpClient client = new SmtpClient { Host = MailServer };
                 client.Send(mailMessage);
             }
             catch (SmtpException x)
