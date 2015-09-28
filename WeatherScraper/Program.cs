@@ -262,26 +262,14 @@ namespace WeatherScraper
                 string fileCommonName = string.Format("SACN61.{0}", airportCode);
                 int fileExtension = GetUniqueFileExtension(fileCommonName);
 
-                // If this is the first file of the day, restart the extension numbering at .1
-                if (fileExtension > 1)
-                {
-                    string oldFileName = string.Format("{0}.{1}.{2}", fileCommonName, dayTime, fileExtension - 1);
-                    string oldFullPath = string.Concat(EnsureTrailingSlash(DataPath), oldFileName);
-
-                    if (File.Exists(oldFullPath))
-                    {
-                        DateTime oldFileCreateTime = File.GetCreationTime(oldFullPath);
-
-                        // Was the oldest file created yesterday?
-                        if (oldFileCreateTime.AddDays(1).Day == DateTime.Now.Day)
-                        {
-                            fileExtension = 1;
-                        }
-                    }
-                }
-
                 string fileUniqueName = string.Format("{0}.{1}.{2}", fileCommonName, dayTime, fileExtension);
                 string fullPath = string.Concat(EnsureTrailingSlash(DataPath), fileUniqueName);
+
+                // If the file already exists, do nothing
+                if (File.Exists(fullPath))
+                {
+                    return;
+                }
 
                 // Write the file to disk
                 IEnumerable<string> lines = new[] { " ", "981 ", string.Format("SACN61 {0} {1} ", airportCode, dayTime), string.Concat(data, "=") };
@@ -316,16 +304,28 @@ namespace WeatherScraper
             Debug.Assert(!string.IsNullOrWhiteSpace(name), "The file name cannot be null or empty.");
 
             string searchPattern = string.Format("{0}*", name);
-            List<string> files = Directory.EnumerateFiles(DataPath, searchPattern, SearchOption.TopDirectoryOnly).ToList();
+            IEnumerable<FileSystemInfo> fileInfo = new DirectoryInfo(DataPath).GetFileSystemInfos(searchPattern, SearchOption.TopDirectoryOnly);
 
-            if (!files.Any())
+            if (!fileInfo.Any())
             {
                 return 1;
             }
 
-            List<int> extensions = (from file in files select Path.GetExtension(file) into extension where !string.IsNullOrWhiteSpace(extension) select Convert.ToInt32(extension.TrimStart('.'))).ToList();
+            // Get the newest file in the list
+            FileSystemInfo newestFile = fileInfo.OrderByDescending(f => f.CreationTime).FirstOrDefault();
 
-            return extensions.Any() ? extensions.Max() + 1 : 1;
+            if (newestFile == null)
+            {
+                throw new FileNotFoundException("Attempts to locate the newest file in the list of parsed data files returned null.");
+            }
+
+            // If this isn't the first file of the day, increment the extension number
+            if (newestFile.CreationTime.Date.CompareTo(DateTime.Now.Date) == 0)
+            {
+                return Convert.ToInt32(newestFile.Extension.TrimStart('.')) + 1;
+            }
+
+            return 1;
         }
 
         /// <summary>

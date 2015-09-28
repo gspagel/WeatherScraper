@@ -10,3 +10,15 @@ C:\Users\pagel\Documents\Visual Studio 2012\Projects\WeatherScraper\WeatherScrap
 C:\Users\pagel\Documents\Visual Studio 2012\Projects\WeatherScraper\WeatherScraper\bin\Release\Newtonsoft.Json.xml
 C:\Users\pagel\Documents\Visual Studio 2012\Projects\WeatherScraper\WeatherScraper\obj\Release\WeatherScraper.exe
 C:\Users\pagel\Documents\Visual Studio 2012\Projects\WeatherScraper\WeatherScraper\obj\Release\WeatherScraper.pdb
+C:\source-control\WeatherScraper\WeatherScraper\bin\Release\WeatherScraper.exe.config
+C:\source-control\WeatherScraper\WeatherScraper\bin\Release\WeatherScraper.xml
+C:\source-control\WeatherScraper\WeatherScraper\obj\Release\WeatherScraper.exe
+C:\source-control\WeatherScraper\WeatherScraper\obj\Release\WeatherScraper.pdb
+C:\source-control\WeatherScraper\WeatherScraper\bin\Release\WeatherScraper.exe
+C:\source-control\WeatherScraper\WeatherScraper\bin\Release\WeatherScraper.pdb
+C:\source-control\WeatherScraper\WeatherScraper\bin\Release\HtmlAgilityPack.dll
+C:\source-control\WeatherScraper\WeatherScraper\bin\Release\NDesk.Options.dll
+C:\source-control\WeatherScraper\WeatherScraper\bin\Release\Newtonsoft.Json.dll
+C:\source-control\WeatherScraper\WeatherScraper\bin\Release\HtmlAgilityPack.pdb
+C:\source-control\WeatherScraper\WeatherScraper\bin\Release\HtmlAgilityPack.xml
+C:\source-control\WeatherScraper\WeatherScraper\bin\Release\Newtonsoft.Json.xml

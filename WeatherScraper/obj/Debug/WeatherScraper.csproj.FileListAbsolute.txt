@@ -15,3 +15,11 @@ C:\source-control\WeatherScraper\WeatherScraper\bin\Debug\WeatherScraper.exe.con
 C:\source-control\WeatherScraper\WeatherScraper\bin\Debug\WeatherScraper.xml
 C:\source-control\WeatherScraper\WeatherScraper\obj\Debug\WeatherScraper.exe
 C:\source-control\WeatherScraper\WeatherScraper\obj\Debug\WeatherScraper.pdb
+C:\source-control\WeatherScraper\WeatherScraper\bin\Debug\WeatherScraper.exe
+C:\source-control\WeatherScraper\WeatherScraper\bin\Debug\WeatherScraper.pdb
+C:\source-control\WeatherScraper\WeatherScraper\bin\Debug\HtmlAgilityPack.dll
+C:\source-control\WeatherScraper\WeatherScraper\bin\Debug\NDesk.Options.dll
+C:\source-control\WeatherScraper\WeatherScraper\bin\Debug\Newtonsoft.Json.dll
+C:\source-control\WeatherScraper\WeatherScraper\bin\Debug\HtmlAgilityPack.pdb
+C:\source-control\WeatherScraper\WeatherScraper\bin\Debug\HtmlAgilityPack.xml
+C:\source-control\WeatherScraper\WeatherScraper\bin\Debug\Newtonsoft.Json.xml
