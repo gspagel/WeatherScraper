@@ -1,0 +1,127 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WeatherScraper</name>
+    </assembly>
+    <members>
+        <member name="F:WeatherScraper.Program.MailSubject">
+            <summary>
+                The mail subject
+            </summary>
+        </member>
+        <member name="M:WeatherScraper.Program.Main(System.String[])">
+            <summary>
+                Program entry point.
+            </summary>
+            <param name="args">The arguments.</param>
+            <exception cref="T:System.ArgumentException">
+                You must specify a valid configuration file that specifies the weather data source URL(s).
+                or
+                You must specify a valid path in which to store the weather data file(s).
+            </exception>
+        </member>
+        <member name="M:WeatherScraper.Program.IsValidConfigurationFile(System.String)">
+            <summary>
+                Determines whether the configuration file specified on invocation is valid.
+            </summary>
+            <param name="configurationFile">The configuration file.</param>
+            <returns></returns>
+        </member>
+        <member name="M:WeatherScraper.Program.GetWeatherData">
+            <summary>
+                Gets the weather data.
+            </summary>
+        </member>
+        <member name="M:WeatherScraper.Program.ParseWeatherData(System.String)">
+            <summary>
+                Parses the weather data.
+            </summary>
+            <param name="data">The data.</param>
+        </member>
+        <member name="M:WeatherScraper.Program.EnsureTrailingSlash(System.String)">
+            <summary>
+                Ensures that the data path provided on invocation has a trailing slash.
+            </summary>
+            <param name="path">The path.</param>
+            <returns></returns>
+        </member>
+        <member name="M:WeatherScraper.Program.GetUniqueFileExtension(System.String)">
+            <summary>
+                Gets a unique extension for the data file.
+            </summary>
+            <param name="name">The file name.</param>
+            <returns></returns>
+        </member>
+        <member name="M:WeatherScraper.Program.ShowHelp(NDesk.Options.OptionSet)">
+            <summary>
+                Shows information about the program to the user.
+            </summary>
+            <param name="options">The options.</param>
+        </member>
+        <member name="M:WeatherScraper.Program.WriteToEventApplicationLog(System.Exception)">
+            <summary>
+                Writes to event application log.
+            </summary>
+            <param name="x">The exception to log.</param>
+        </member>
+        <member name="M:WeatherScraper.Program.SendMail(System.String)">
+            <summary>
+                Sends mail to the system administrator on error.
+            </summary>
+            <param name="message">The message.</param>
+        </member>
+        <member name="P:WeatherScraper.Program.MailFrom">
+            <summary>
+                Gets or sets the sender email address.
+            </summary>
+            <value>
+                The sender email address.
+            </value>
+        </member>
+        <member name="P:WeatherScraper.Program.MailTo">
+            <summary>
+                Gets or sets the recipient email address.
+            </summary>
+            <value>
+                The recipient email address.
+            </value>
+        </member>
+        <member name="P:WeatherScraper.Program.MailServer">
+            <summary>
+                Gets or sets the mail server.
+            </summary>
+            <value>
+                The mail server.
+            </value>
+        </member>
+        <member name="P:WeatherScraper.Program.Sources">
+            <summary>
+                Gets or sets the source URLs for weather data.
+            </summary>
+            <value>
+                The source URLs.
+            </value>
+        </member>
+        <member name="P:WeatherScraper.Program.DataPath">
+            <summary>
+                Gets or sets the data path.
+            </summary>
+            <value>
+                The data path.
+            </value>
+        </member>
+        <member name="P:WeatherScraper.Program.ConfigurationFile">
+            <summary>
+                Gets or sets the configuration file.
+            </summary>
+            <value>
+                The configuration file.
+            </value>
+        </member>
+        <member name="T:WeatherScraper.Program.WeatherDataSources">
+            <summary>
+                The URLs from which to retreive weather data.
+            </summary>
+        </member>
+    </members>
+</doc>

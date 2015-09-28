@@ -1,0 +1,13 @@
+C:\Users\pagel\Documents\Visual Studio 2012\Projects\WeatherScraper\WeatherScraperUnitTest\bin\Debug\WeatherScraperUnitTest.dll
+C:\Users\pagel\Documents\Visual Studio 2012\Projects\WeatherScraper\WeatherScraperUnitTest\bin\Debug\WeatherScraperUnitTest.pdb
+C:\Users\pagel\Documents\Visual Studio 2012\Projects\WeatherScraper\WeatherScraperUnitTest\bin\Debug\WeatherScraper.exe
+C:\Users\pagel\Documents\Visual Studio 2012\Projects\WeatherScraper\WeatherScraperUnitTest\bin\Debug\NDesk.Options.dll
+C:\Users\pagel\Documents\Visual Studio 2012\Projects\WeatherScraper\WeatherScraperUnitTest\bin\Debug\Newtonsoft.Json.dll
+C:\Users\pagel\Documents\Visual Studio 2012\Projects\WeatherScraper\WeatherScraperUnitTest\bin\Debug\HtmlAgilityPack.dll
+C:\Users\pagel\Documents\Visual Studio 2012\Projects\WeatherScraper\WeatherScraperUnitTest\bin\Debug\WeatherScraper.pdb
+C:\Users\pagel\Documents\Visual Studio 2012\Projects\WeatherScraper\WeatherScraperUnitTest\bin\Debug\Newtonsoft.Json.xml
+C:\Users\pagel\Documents\Visual Studio 2012\Projects\WeatherScraper\WeatherScraperUnitTest\bin\Debug\HtmlAgilityPack.pdb
+C:\Users\pagel\Documents\Visual Studio 2012\Projects\WeatherScraper\WeatherScraperUnitTest\bin\Debug\HtmlAgilityPack.xml
+C:\Users\pagel\Documents\Visual Studio 2012\Projects\WeatherScraper\WeatherScraperUnitTest\obj\Debug\WeatherScraperUnitTest.csprojResolveAssemblyReference.cache
+C:\Users\pagel\Documents\Visual Studio 2012\Projects\WeatherScraper\WeatherScraperUnitTest\obj\Debug\WeatherScraperUnitTest.dll
+C:\Users\pagel\Documents\Visual Studio 2012\Projects\WeatherScraper\WeatherScraperUnitTest\obj\Debug\WeatherScraperUnitTest.pdb
