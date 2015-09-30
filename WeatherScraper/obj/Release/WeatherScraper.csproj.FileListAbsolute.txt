@@ -22,3 +22,4 @@ C:\source-control\WeatherScraper\WeatherScraper\bin\Release\Newtonsoft.Json.dll
 C:\source-control\WeatherScraper\WeatherScraper\bin\Release\HtmlAgilityPack.pdb
 C:\source-control\WeatherScraper\WeatherScraper\bin\Release\HtmlAgilityPack.xml
 C:\source-control\WeatherScraper\WeatherScraper\bin\Release\Newtonsoft.Json.xml
+C:\source-control\WeatherScraper\WeatherScraper\obj\Release\WeatherScraper.csprojResolveAssemblyReference.cache

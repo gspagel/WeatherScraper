@@ -272,8 +272,8 @@ namespace WeatherScraper
                 }
 
                 // Write the file to disk
-                IEnumerable<string> lines = new[] { " ", "981 ", string.Format("SACN61 {0} {1} ", airportCode, dayTime), string.Concat(data, "=") };
-                File.WriteAllLines(fullPath, lines);
+                IEnumerable<string> lines = new[] { "\x0001", "981 ", string.Format("SACN61 {0} {1} ", airportCode, dayTime), string.Concat(data, "=") };
+                File.WriteAllLines(fullPath, lines, System.Text.Encoding.UTF8);
             }
             catch (Exception x)
             {
