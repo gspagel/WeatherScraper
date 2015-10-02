@@ -260,7 +260,16 @@ namespace WeatherScraper
                 string dayTime = parts.ElementAt(2).TrimEnd('Z');
 
                 string fileCommonName = string.Format("SACN61.{0}", airportCode);
-                int fileExtension = GetUniqueFileExtension(fileCommonName);
+
+                // Get the previously saved data file and generate an appropriate sequential file extension
+                FileSystemInfo previousDataFile = GetPreviousDataFile(fileCommonName);
+
+                int fileExtension = 1;
+
+                if (previousDataFile != null)
+                {
+                    fileExtension = GetUniqueFileExtension(previousDataFile);
+                }
 
                 string fileUniqueName = string.Format("{0}.{1}.{2}", fileCommonName, dayTime, fileExtension);
                 string fullPath = string.Concat(EnsureTrailingSlash(DataPath), fileUniqueName);
@@ -271,8 +280,23 @@ namespace WeatherScraper
                     return;
                 }
 
-                // Write the file to disk
+                // Build the file contents
                 IEnumerable<string> lines = new[] { "\x0001", "981 ", string.Format("SACN61 {0} {1} ", airportCode, dayTime), string.Concat(data, "=") };
+
+                // Compare the previous file contents (if we have it) to what we retreived from the web source
+                if (previousDataFile != null)
+                {
+                    IEnumerable<string> oldLines = File.ReadAllLines(previousDataFile.FullName);
+
+                    if (oldLines.SequenceEqual(lines))
+                    {
+                        // The content is exactly the same as last time, so don't bother creating a new file
+                        throw new Exception("This is bullshit.  The file hasn't changed a bit.");
+                        return;
+                    }
+                }
+
+                // Write the file to disk
                 File.WriteAllLines(fullPath, lines, System.Text.Encoding.UTF8);
             }
             catch (Exception x)
@@ -295,11 +319,22 @@ namespace WeatherScraper
         }
 
         /// <summary>
-        ///     Gets a unique extension for the data file.
+        /// Gets a unique extension for the data file.
         /// </summary>
-        /// <param name="name">The file name.</param>
+        /// <param name="previousDataFile">The previous data file.</param>
         /// <returns></returns>
-        private static int GetUniqueFileExtension(string name)
+        private static int GetUniqueFileExtension(FileSystemInfo previousDataFile)
+        {
+            // If this isn't the first file of the day, increment the extension number
+            if (previousDataFile.CreationTime.Date.CompareTo(DateTime.Now.Date) == 0)
+            {
+                return Convert.ToInt32(previousDataFile.Extension.TrimStart('.')) + 1;
+            }
+
+            return 1;
+        }
+
+        private static FileSystemInfo GetPreviousDataFile(string name)
         {
             Debug.Assert(!string.IsNullOrWhiteSpace(name), "The file name cannot be null or empty.");
 
@@ -308,7 +343,7 @@ namespace WeatherScraper
 
             if (!fileInfo.Any())
             {
-                return 1;
+                return null;
             }
 
             // Get the newest file in the list
@@ -319,13 +354,7 @@ namespace WeatherScraper
                 throw new FileNotFoundException("Attempts to locate the newest file in the list of parsed data files returned null.");
             }
 
-            // If this isn't the first file of the day, increment the extension number
-            if (newestFile.CreationTime.Date.CompareTo(DateTime.Now.Date) == 0)
-            {
-                return Convert.ToInt32(newestFile.Extension.TrimStart('.')) + 1;
-            }
-
-            return 1;
+            return newestFile;
         }
 
         /// <summary>

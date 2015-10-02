@@ -45,11 +45,11 @@
             <param name="path">The path.</param>
             <returns></returns>
         </member>
-        <member name="M:WeatherScraper.Program.GetUniqueFileExtension(System.String)">
+        <member name="M:WeatherScraper.Program.GetUniqueFileExtension(System.IO.FileSystemInfo)">
             <summary>
-                Gets a unique extension for the data file.
+            Gets a unique extension for the data file.
             </summary>
-            <param name="name">The file name.</param>
+            <param name="previousDataFile">The previous data file.</param>
             <returns></returns>
         </member>
         <member name="M:WeatherScraper.Program.ShowHelp(NDesk.Options.OptionSet)">
