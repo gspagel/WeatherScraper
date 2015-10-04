@@ -63,6 +63,14 @@ namespace WeatherScraper
         private static string ConfigurationFile { get; set; }
 
         /// <summary>
+        ///     Gets or sets the HTML document.
+        /// </summary>
+        /// <value>
+        ///     The HTML document.
+        /// </value>
+        private static HtmlAgilityPack.HtmlDocument HtmlDocument { get; set; }
+
+        /// <summary>
         ///     Program entry point.
         /// </summary>
         /// <param name="args">The arguments.</param>
@@ -198,12 +206,28 @@ namespace WeatherScraper
                             if (!string.IsNullOrWhiteSpace(html))
                             {
                                 // Get the first line of HTML
-                                HtmlAgilityPack.HtmlDocument htmlDocument = new HtmlAgilityPack.HtmlDocument();
-                                htmlDocument.LoadHtml(html);
+                                HtmlDocument = new HtmlAgilityPack.HtmlDocument();
+                                HtmlDocument.LoadHtml(html);
 
-                                HtmlAgilityPack.HtmlNode dataNode = htmlDocument.DocumentNode.SelectSingleNode("//br").NextSibling;
+                                DataParser parser = new DataParser();
 
-                                string data = dataNode.InnerText;
+                                // TODO: Evaluate whether to use an enumerator here instead of strings
+                                switch (source.Airport.ToLowerInvariant())
+                                {
+                                    case "cynr":
+                                        parser.SetParseStrategy(new CynrParse());
+                                        break;
+                                    case "cet2":
+                                        parser.SetParseStrategy(new Cet2Parse());
+                                        break;
+                                    case "cfg6":
+                                        parser.SetParseStrategy(new Cfg6Parse());
+                                        break;
+                                    default:
+                                        throw new InvalidOperationException("Invalid airport code specified in the configuration file.");
+                                }
+
+                                string data = parser.Parse();
 
                                 // Parse and store the data
                                 if (!string.IsNullOrWhiteSpace(data))
@@ -291,7 +315,6 @@ namespace WeatherScraper
                     if (oldLines.SequenceEqual(lines))
                     {
                         // The content is exactly the same as last time, so don't bother creating a new file
-                        throw new Exception("This is bullshit.  The file hasn't changed a bit.");
                         return;
                     }
                 }
@@ -319,7 +342,7 @@ namespace WeatherScraper
         }
 
         /// <summary>
-        /// Gets a unique extension for the data file.
+        ///     Gets a unique extension for the data file.
         /// </summary>
         /// <param name="previousDataFile">The previous data file.</param>
         /// <returns></returns>
@@ -334,6 +357,15 @@ namespace WeatherScraper
             return 1;
         }
 
+        /// <summary>
+        ///     Gets the previous data file.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <returns></returns>
+        /// <exception cref="System.IO.FileNotFoundException">
+        ///     Attempts to locate the newest file in the list of parsed data files
+        ///     returned null.
+        /// </exception>
         private static FileSystemInfo GetPreviousDataFile(string name)
         {
             Debug.Assert(!string.IsNullOrWhiteSpace(name), "The file name cannot be null or empty.");
@@ -410,11 +442,124 @@ namespace WeatherScraper
         }
 
         /// <summary>
+        ///     Abstract class for parsing weather data
+        /// </summary>
+        internal abstract class ParseStrategy
+        {
+            /// <summary>
+            ///     Parses the specified HTML document.
+            /// </summary>
+            /// <param name="htmlDocument">The HTML document.</param>
+            /// <returns></returns>
+            public abstract string Parse(HtmlAgilityPack.HtmlDocument htmlDocument);
+        }
+
+        /// <summary>
+        ///     Parses weather data for CYNR
+        /// </summary>
+        internal class CynrParse : ParseStrategy
+        {
+            /// <summary>
+            ///     Parses the specified HTML document.
+            /// </summary>
+            /// <param name="htmlDocument">The HTML document.</param>
+            /// <returns></returns>
+            public override string Parse(HtmlAgilityPack.HtmlDocument htmlDocument)
+            {
+                Debug.Assert(htmlDocument != null, "The source HTML cannot be null or empty.");
+
+                HtmlAgilityPack.HtmlNode dataNode = htmlDocument.DocumentNode.SelectSingleNode("//br").NextSibling;
+
+                return dataNode.InnerText;
+            }
+        }
+
+        /// <summary>
+        ///     Parses weather data for CET2
+        /// </summary>
+        internal class Cet2Parse : ParseStrategy
+        {
+            /// <summary>
+            ///     Parses the specified HTML document.
+            /// </summary>
+            /// <param name="htmlDocument">The HTML document.</param>
+            /// <returns></returns>
+            public override string Parse(HtmlAgilityPack.HtmlDocument htmlDocument)
+            {
+                Debug.Assert(htmlDocument != null, "The source HTML cannot be null or empty.");
+
+                HtmlAgilityPack.HtmlNode dataNode = htmlDocument.DocumentNode.SelectSingleNode("//br").NextSibling;
+
+                return dataNode.InnerText;
+            }
+        }
+
+        /// <summary>
+        ///     Parses weather data from HTML for CFG6
+        /// </summary>
+        internal class Cfg6Parse : ParseStrategy
+        {
+            /// <summary>
+            ///     Parses the specified HTML document.
+            /// </summary>
+            /// <param name="htmlDocument">The HTML document.</param>
+            /// <returns></returns>
+            public override string Parse(HtmlAgilityPack.HtmlDocument htmlDocument)
+            {
+                Debug.Assert(htmlDocument != null, "The source HTML cannot be null or empty.");
+
+                HtmlAgilityPack.HtmlNode dataNode = htmlDocument.DocumentNode.SelectSingleNode("//div[@id='METAR']");
+
+                return dataNode.InnerText.Trim();
+            }
+        }
+
+        /// <summary>
+        ///     Parses weather data from HTML
+        /// </summary>
+        internal class DataParser
+        {
+            private ParseStrategy _parseStrategy;
+
+            /// <summary>
+            ///     Sets the parse strategy.
+            /// </summary>
+            /// <param name="parseStrategy">The parse strategy.</param>
+            public void SetParseStrategy(ParseStrategy parseStrategy)
+            {
+                this._parseStrategy = parseStrategy;
+            }
+
+            /// <summary>
+            ///     Parses this instance.
+            /// </summary>
+            /// <returns></returns>
+            public string Parse()
+            {
+                return this._parseStrategy.Parse(HtmlDocument);
+            }
+        }
+
+        /// <summary>
         ///     The URLs from which to retreive weather data.
         /// </summary>
         public class WeatherDataSources
         {
+            /// <summary>
+            ///     Gets or sets the URL.
+            /// </summary>
+            /// <value>
+            ///     The URL.
+            /// </value>
             public string Url { get; set; }
+
+            /// <summary>
+            ///     Gets or sets the source.
+            /// </summary>
+            /// <value>
+            ///     The source.
+            /// </value>
+            public string Airport { get; set; }
         }
     }
 }

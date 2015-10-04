@@ -47,10 +47,21 @@
         </member>
         <member name="M:WeatherScraper.Program.GetUniqueFileExtension(System.IO.FileSystemInfo)">
             <summary>
-            Gets a unique extension for the data file.
+                Gets a unique extension for the data file.
             </summary>
             <param name="previousDataFile">The previous data file.</param>
             <returns></returns>
+        </member>
+        <member name="M:WeatherScraper.Program.GetPreviousDataFile(System.String)">
+            <summary>
+                Gets the previous data file.
+            </summary>
+            <param name="name">The name.</param>
+            <returns></returns>
+            <exception cref="T:System.IO.FileNotFoundException">
+                Attempts to locate the newest file in the list of parsed data files
+                returned null.
+            </exception>
         </member>
         <member name="M:WeatherScraper.Program.ShowHelp(NDesk.Options.OptionSet)">
             <summary>
@@ -118,10 +129,99 @@
                 The configuration file.
             </value>
         </member>
+        <member name="P:WeatherScraper.Program.HtmlDocument">
+            <summary>
+                Gets or sets the HTML document.
+            </summary>
+            <value>
+                The HTML document.
+            </value>
+        </member>
+        <member name="T:WeatherScraper.Program.ParseStrategy">
+            <summary>
+                Abstract class for parsing weather data
+            </summary>
+        </member>
+        <member name="M:WeatherScraper.Program.ParseStrategy.Parse(HtmlAgilityPack.HtmlDocument)">
+            <summary>
+                Parses the specified HTML document.
+            </summary>
+            <param name="htmlDocument">The HTML document.</param>
+            <returns></returns>
+        </member>
+        <member name="T:WeatherScraper.Program.CynrParse">
+            <summary>
+                Parses weather data for CYNR
+            </summary>
+        </member>
+        <member name="M:WeatherScraper.Program.CynrParse.Parse(HtmlAgilityPack.HtmlDocument)">
+            <summary>
+                Parses the specified HTML document.
+            </summary>
+            <param name="htmlDocument">The HTML document.</param>
+            <returns></returns>
+        </member>
+        <member name="T:WeatherScraper.Program.Cet2Parse">
+            <summary>
+                Parses weather data for CET2
+            </summary>
+        </member>
+        <member name="M:WeatherScraper.Program.Cet2Parse.Parse(HtmlAgilityPack.HtmlDocument)">
+            <summary>
+                Parses the specified HTML document.
+            </summary>
+            <param name="htmlDocument">The HTML document.</param>
+            <returns></returns>
+        </member>
+        <member name="T:WeatherScraper.Program.Cfg6Parse">
+            <summary>
+                Parses weather data from HTML for CFG6
+            </summary>
+        </member>
+        <member name="M:WeatherScraper.Program.Cfg6Parse.Parse(HtmlAgilityPack.HtmlDocument)">
+            <summary>
+                Parses the specified HTML document.
+            </summary>
+            <param name="htmlDocument">The HTML document.</param>
+            <returns></returns>
+        </member>
+        <member name="T:WeatherScraper.Program.DataParser">
+            <summary>
+                Parses weather data from HTML
+            </summary>
+        </member>
+        <member name="M:WeatherScraper.Program.DataParser.SetParseStrategy(WeatherScraper.Program.ParseStrategy)">
+            <summary>
+                Sets the parse strategy.
+            </summary>
+            <param name="parseStrategy">The parse strategy.</param>
+        </member>
+        <member name="M:WeatherScraper.Program.DataParser.Parse">
+            <summary>
+                Parses this instance.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:WeatherScraper.Program.WeatherDataSources">
             <summary>
                 The URLs from which to retreive weather data.
             </summary>
+        </member>
+        <member name="P:WeatherScraper.Program.WeatherDataSources.Url">
+            <summary>
+                Gets or sets the URL.
+            </summary>
+            <value>
+                The URL.
+            </value>
+        </member>
+        <member name="P:WeatherScraper.Program.WeatherDataSources.Airport">
+            <summary>
+                Gets or sets the source.
+            </summary>
+            <value>
+                The source.
+            </value>
         </member>
     </members>
 </doc>
