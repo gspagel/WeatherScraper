@@ -185,6 +185,13 @@
             <param name="htmlDocument">The HTML document.</param>
             <returns></returns>
         </member>
+        <member name="M:WeatherScraper.Program.Crl4Parse.Parse(HtmlAgilityPack.HtmlDocument)">
+            <summary>
+                Parses the specified HTML document.
+            </summary>
+            <param name="htmlDocument">The HTML document.</param>
+            <returns></returns>
+        </member>
         <member name="T:WeatherScraper.Program.DataParser">
             <summary>
                 Parses weather data from HTML

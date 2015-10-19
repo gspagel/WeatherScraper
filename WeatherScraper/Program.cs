@@ -223,6 +223,9 @@ namespace WeatherScraper
                                     case "cfg6":
                                         parser.SetParseStrategy(new Cfg6Parse());
                                         break;
+                                    case "crl4":
+                                        parser.SetParseStrategy(new Crl4Parse());
+                                        break;
                                     default:
                                         throw new InvalidOperationException("Invalid airport code specified in the configuration file.");
                                 }
@@ -509,6 +512,23 @@ namespace WeatherScraper
                 Debug.Assert(htmlDocument != null, "The source HTML cannot be null or empty.");
 
                 HtmlAgilityPack.HtmlNode dataNode = htmlDocument.DocumentNode.SelectSingleNode("//div[@id='METAR']");
+
+                return dataNode.InnerText.Trim();
+            }
+        }
+
+        internal class Crl4Parse : ParseStrategy
+        {
+            /// <summary>
+            ///     Parses the specified HTML document.
+            /// </summary>
+            /// <param name="htmlDocument">The HTML document.</param>
+            /// <returns></returns>
+            public override string Parse(HtmlAgilityPack.HtmlDocument htmlDocument)
+            {
+                Debug.Assert(htmlDocument != null, "The source HTML cannot be null or empty");
+
+                HtmlAgilityPack.HtmlNode dataNode = htmlDocument.DocumentNode.SelectSingleNode("//span[@id='MainContent_lblData']");
 
                 return dataNode.InnerText.Trim();
             }
